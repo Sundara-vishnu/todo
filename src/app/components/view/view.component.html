@@ -7,7 +7,8 @@
             <form class="form-inline my-2 my-lg-0 ">
                 <div class="form-group has-search">
                     <span class=" form-control-feedback"></span>
-                    <input type="text" class="form-control" placeholder="Search">&nbsp;&nbsp;
+                    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText"
+                        (input)="onSearch()">&nbsp;&nbsp;
                     <i class="fas fa-plus-circle"></i>&nbsp;
                     <div routerLink="../add">
                         Add new note
@@ -33,12 +34,21 @@
 <!-- Add this to your template -->
 <div *ngIf="editIndex !== -1">
     <!-- Edit form here, with input fields for heading, description, date, and time -->
-    <!-- Add a "Save" button to call the saveEdit() function -->
+    <form (submit)="saveEdit()">
+        <input type="text" [(ngModel)]="notes[editIndex].heading" name="heading" placeholder="Heading">
+        <textarea [(ngModel)]="notes[editIndex].description" name="description" placeholder="Description"></textarea>
+        <input type="date" [(ngModel)]="notes[editIndex].date" name="date">
+        <input type="time" [(ngModel)]="notes[editIndex].time" name="time">
+        <button type="submit">Save</button>
+    </form>
 </div>
 
-<div *ngIf="available==='true'" class="row m-0">
+
+
+<div *ngIf="available==='true'" class="row m-0 mt-2">
     <div class="col-md-12 m-0" id="all-notes">
         <div *ngIf="editIndex === -1">
+
             <div class="row m-0" *ngFor="let data of notes; let i = index" id="all-notes-from-JSON">
                 <div class="row m-0">
                     <div class="col-md-* m-1 p-3 border note-box">
@@ -50,10 +60,11 @@
                                     {{data.time}}</span><span>
 
                                 </span></span>
-                            <span class="px-3 p-1 add-experience"><button (click)="editNote(i)" routerLink="../add"
-                                    id="'+i+'"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <span class="px-3 p-1 add-experience"><button (click)="editNote(i)" id="'+i+'" routerLink="/add"><i
+                                        class="fa-solid fa-pen-to-square" style="color: blueviolet;"></i></button>
+                                &nbsp;
                                 <button (click)="deleteNote(i)" class="delete" id="'+i+'"><i
-                                        class="fa-solid fa-trash-can"></i></button></span>
+                                        class="fa-solid fa-trash-can" style="color: red;"></i></button></span>
 
 
 
@@ -69,5 +80,5 @@
     <blockquote class="blockquote text-center">
         <p class="mb-0">Notes not found</p>
         <footer class="blockquote-footer">Please add note<cite title="Source Title"></cite></footer>
-      </blockquote>
+    </blockquote>
 </div>

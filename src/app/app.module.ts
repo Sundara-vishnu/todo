@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewComponent } from './components/view/view.component';
 import { AddComponent } from './components/add/add.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { NotesComponent } from './components/notes/notes.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { RouterModule } from '@angular/router';
@@ -25,6 +25,7 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     FormsModule,
     RouterModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from './todo.model';
 import { SharedService } from 'src/app/shared.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -16,6 +17,8 @@ export class AddComponent implements OnInit {
     date: '',
     time: '',
   };
+  
+  
 
   constructor(private shared:SharedService) {
     // Retrieve and parse the stored data from local storage
@@ -44,12 +47,13 @@ export class AddComponent implements OnInit {
       date: '',
       time: '',
     };
-
+  
+    
     console.log(this.shared.shareddata)
     const todoData = JSON.stringify(this.todo);
     localStorage.setItem('todo', todoData);
-    
   }
+  
   editNote(index: number) {
     this.editIndex = index;
     // Populate the form fields with the values of the note for editing

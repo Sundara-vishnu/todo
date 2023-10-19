@@ -14,6 +14,7 @@ export class ViewComponent implements OnInit {
   addNote: boolean = false;
   available="false";
   notes: Todo[] = [];
+  filteredNotes: Todo[] = [];
   constructor(private shared: SharedService) {
 
 
@@ -39,15 +40,19 @@ export class ViewComponent implements OnInit {
   editIndex: number = -1; // Initially, no note is being edited
 
   editNote(index: number) {
+
     this.editIndex = index;
+    
     // Populate the form fields with the values of the note for editing
+    
     this.todo = {
       heading: this.todo.heading,
       description: this.todo.description,
       date: this.todo.date,
       time: this.todo.time
     };
-    this.todo = { ...this.notes[index] };
+    this.todo = { ...this.notes[index] }; 
+
   }
 
   // Add a saveEdit function to save the changes
@@ -74,6 +79,21 @@ export class ViewComponent implements OnInit {
       alert("Deleted the note!")
     }
   }
+
+  searchText: string = '';
+
+onSearch() {
+    // Filter the notes based on the search text
+    if (this.searchText) {
+        this.filteredNotes = this.notes.filter((note) =>
+            note.heading.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            note.description.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+    } else {
+        this.filteredNotes = this.notes; // If search text is empty, show all notes
+    }
+}
+
 }
 
 
